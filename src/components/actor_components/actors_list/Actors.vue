@@ -1,15 +1,24 @@
 <template>
-    <div>
-        <div v-if="isFetched">
-            <div v-for="actor in actors" v-bind:key="actor.actor_id">
-                <Actor v-bind:actor="actor"/>
+    <div class="container">
+        <div class="row">
+            <div v-if="isFetched" class="col-md-12 text-center">
+                <paginate ref="paginator" name="actors" :list="actors" :per="15">
+                    <div v-for="actor in paginated('actors')" v-bind:key="actor.actor_id">
+                        <Actor v-bind:actor="actor"/>
+                    </div>
+                </paginate>
+                <paginate-links for="actors" :show-step-links="true" :simple="{prev: 'Anterior', next: 'Siguiente'}"/>
+                <p class="text-center font-weight-bold" v-if="$refs.paginator">
+                    Mostrando {{$refs.paginator.pageItemsCount}} resultados.
+                </p>
             </div>
-        </div>
-        <!--
-            If data is not fetched yet, DOM shows three loading components
-        -->
-        <div v-else>
-            <LoaderBar/>
+
+            <!--
+                If data is not fetched yet, DOM shows three loading components
+            -->
+            <div v-else>
+                <LoaderBar/>
+            </div>
         </div>
     </div>
 </template>
@@ -25,7 +34,8 @@
         data: function () {
             return {
                 actors: [],
-                isFetched: false
+                isFetched: false,
+                paginate: ['actors']
             }
         },
         components: {
@@ -47,6 +57,22 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .paginate-links li {
+        display: inline;
+        background-color: green;
+        color: white;
+        text-transform: uppercase;
+        font-weight: inherit;
+        padding: 0.5rem;
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    .paginate-links ul {
+        margin-left: 40%;
+        margin-right: 40%;
+        background: green;
+    }
 </style>
