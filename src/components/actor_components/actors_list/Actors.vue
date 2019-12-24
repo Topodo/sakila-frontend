@@ -1,31 +1,24 @@
 <template>
-    <div class="container-lg">
+    <div class="container-xl">
         <h1 class="display-1 font-weight-bolder font-italic"> Actores </h1>
         <br>
         <br>
-        <div class="row">
-            <div v-if="isFetched" class="col-md-12 text-center">
-                <p class="font-weight-bold" v-if="$refs.paginator">
-                    Mostrando {{$refs.paginator.pageItemsCount}} resultados
-                </p>
-                <paginate-links for="actors" :show-step-links="true" :simple="{prev: 'Anterior', next: 'Siguiente'}"/>
-                <br>
-                <paginate ref="paginator" name="actors" :list="actors" :per="10">
-                    <div v-for="actor in paginated('actors')" v-bind:key="actor.actor_id">
-                        <Actor v-bind:actor="actor"/>
+        <div v-if="isFetched" class="text-center">
+            <div v-for="(chunk, index) in chunkedActors" v-bind:key="index">
+                <div class="row">
+                    <div v-for="actor in chunk" v-bind:key="actor.actor_id">
+                        <div class="col">
+                            <Actor v-bind:actor="actor"/>
+                        </div>
                     </div>
-                </paginate>
-                <paginate-links for="actors" :show-step-links="true" :simple="{prev: 'Anterior', next: 'Siguiente'}"/>
-                <span class="font-weight-bold" v-if="$refs.paginator">
-                    Mostrando {{$refs.paginator.pageItemsCount}} resultados
-                </span>
+                </div>
             </div>
-            <!--
-                If data is not fetched yet, DOM shows three loading components
-            -->
-            <div class="center-div" v-else>
-                <LoaderBar/>
-            </div>
+        </div>
+        <!--
+            If data is not fetched yet, DOM shows three loading components
+        -->
+        <div class="center-div" v-else>
+            <LoaderBar/>
         </div>
     </div>
 </template>
@@ -40,9 +33,8 @@
         name: "Actors",
         data: function () {
             return {
-                actors: [],
+                chunkedActors: [[]],
                 isFetched: false,
-                paginate: ['actors']
             }
         },
         components: {
@@ -56,9 +48,19 @@
             fetchData: function () {
                 this.$http.get(`${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/${process.env.VUE_APP_API_VERSION}/actors/`)
                     .then(response => {
-                        this.actors = response.body
+                        this.chunkedActors = this.chunkActors(response.body)
                         this.isFetched = true
                     })
+            },
+            chunkActors: function (actors) {
+                console.log(actors.length)
+                let chunked_arr = [];
+                let index = 0;
+                while (index < actors.length) {
+                    chunked_arr.push(actors.slice(index, 5 + index));
+                    index += 3;
+                }
+                return chunked_arr;
             }
         }
     }
@@ -77,6 +79,7 @@
         cursor: pointer;
         border-radius: 4px;
     }
+
     .paginate-links ul {
         margin-left: 40%;
         margin-right: 40%;

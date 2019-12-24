@@ -1,7 +1,7 @@
 <template>
     <div class="border-bottom-imp border-green-imp">
         <img :src="'https://robohash.org/' + actor.actor_id + '?size=70x70'" alt="" class="rounded-circle img"/>
-        <h5>{{ actor_name }}</h5>
+        <h5>{{ actorName }}</h5>
         <div class="flex-row">
             <router-link :to="{ name: 'get_films_of_the_actor', params: {id: this.actor.actor_id}}">
                 <a class="btn btn-success">
@@ -18,28 +18,31 @@
         props: ['actor'],
         data: function () {
             return {
-                actor_name: '',
-                films_route: ''
+                actorName: '',
+                filmsRoute: ''
             }
         },
-        created: function() {
-            this.actor_name = this.formatName(this.actor.first_name, this.actor.last_name)
-            this.films_route = this.getFilmsRoute()
+        created: function () {
+            this.mapPropsToData()
         },
         methods: {
             formatName: function (firstName, lastName) {
                 let formattedName = firstName[0]
-                for(let i = 1; i < firstName.length; i++) {
+                for (let i = 1; i < firstName.length; i++) {
                     formattedName += firstName[i].toLowerCase()
                 }
                 formattedName += ` ${lastName[0]}`
-                for(let i = 1; i < lastName.length; i++) {
+                for (let i = 1; i < lastName.length; i++) {
                     formattedName += lastName[i].toLowerCase()
                 }
                 return formattedName
             },
             getFilmsRoute: function () {
                 return `/actors/${this.actor.actor_id}/films`
+            },
+            mapPropsToData: function () {
+                this.actorName = this.formatName(this.actor.first_name, this.actor.last_name)
+                this.filmsRoute = this.getFilmsRoute()
             }
         }
     }
@@ -57,6 +60,7 @@
 
     .border-bottom-imp {
         margin-top: 1em;
+        margin-right: 1em;
         border-bottom: 2px groove green !important;
     }
 
