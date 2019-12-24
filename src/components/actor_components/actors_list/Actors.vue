@@ -27,7 +27,7 @@
     /* eslint-disable */
     import Actor from "@/components/actor_components/actor/Actor"
     import './actors.css'
-    import LoaderBar from "@/components/utils/loader_bar/LoaderBar";
+    import LoaderBar from "@/components/utils/loader_bar/LoaderBar"
 
     export default {
         name: "Actors",
@@ -46,14 +46,22 @@
         },
         methods: {
             fetchData: function () {
-                this.$http.get(`${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/${process.env.VUE_APP_API_VERSION}/actors/`)
-                    .then(response => {
-                        this.chunkedActors = this.chunkActors(response.body)
-                        this.isFetched = true
-                    })
+                // Validates if the URL is and index of actors or actors of a film
+                if (this.$route.params.film_id) {
+                    this.$http.get(`${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/${process.env.VUE_APP_API_VERSION}/films/${this.$route.params.film_id}/actors/`)
+                        .then(response => {
+                            this.chunkedActors = this.chunkActors(response.body)
+                            this.isFetched = true
+                        })
+                } else {
+                    this.$http.get(`${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/${process.env.VUE_APP_API_VERSION}/actors/`)
+                        .then(response => {
+                            this.chunkedActors = this.chunkActors(response.body)
+                            this.isFetched = true
+                        })
+                }
             },
             chunkActors: function (actors) {
-                console.log(actors.length)
                 let chunked_arr = [];
                 let index = 0;
                 while (index < actors.length) {
@@ -67,22 +75,5 @@
 </script>
 
 <style>
-    .paginate-links li {
-        display: inline;
-        background-color: green;
-        color: white;
-        text-transform: uppercase;
-        font-weight: inherit;
-        padding: 0.5rem;
-        margin-left: 0.3rem;
-        margin-right: 0.3rem;
-        cursor: pointer;
-        border-radius: 4px;
-    }
 
-    .paginate-links ul {
-        margin-left: 40%;
-        margin-right: 40%;
-        background: green;
-    }
 </style>

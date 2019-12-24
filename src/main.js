@@ -27,9 +27,20 @@ const routes = [
         component: Actors
     },
     {
-        path: '/actors/:id/films',
+        path: '/films',
+        name: 'get_films',
+        component: Films
+    },
+    {
+        path: '/actors/:actor_id/films',
         component: Films,
         name: 'get_films_of_the_actor',
+        props: true
+    },
+    {
+        path: '/films/:film_id/actors',
+        component: Actors,
+        name: 'get_actors_of_the_film',
         props: true
     }
 ]

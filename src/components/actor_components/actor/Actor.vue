@@ -3,7 +3,7 @@
         <img :src="'https://robohash.org/' + actor.actor_id + '?size=70x70'" alt="" class="rounded-circle img"/>
         <h5>{{ actorName }}</h5>
         <div class="flex-row">
-            <router-link :to="{ name: 'get_films_of_the_actor', params: {id: this.actor.actor_id}}">
+            <router-link :to="{ name: 'get_films_of_the_actor', params: {actor_id: this.actorId}}">
                 <a class="btn btn-success">
                     Ver sus películas
                 </a>
@@ -18,6 +18,7 @@
         props: ['actor'],
         data: function () {
             return {
+                actorId: 0,
                 actorName: '',
                 filmsRoute: ''
             }
@@ -38,9 +39,10 @@
                 return formattedName
             },
             getFilmsRoute: function () {
-                return `/actors/${this.actor.actor_id}/films`
+                return `/actors/${this.actorId}/films`
             },
             mapPropsToData: function () {
+                this.actorId = this.actor.actor_id
                 this.actorName = this.formatName(this.actor.first_name, this.actor.last_name)
                 this.filmsRoute = this.getFilmsRoute()
             }
