@@ -1,22 +1,29 @@
 <template>
-    <div class="container">
+    <div class="container-lg">
+        <h1 class="display-1 font-weight-bolder font-italic"> Actores </h1>
+        <br>
+        <br>
         <div class="row">
             <div v-if="isFetched" class="col-md-12 text-center">
-                <paginate ref="paginator" name="actors" :list="actors" :per="15">
+                <p class="font-weight-bold" v-if="$refs.paginator">
+                    Mostrando {{$refs.paginator.pageItemsCount}} resultados
+                </p>
+                <paginate-links for="actors" :show-step-links="true" :simple="{prev: 'Anterior', next: 'Siguiente'}"/>
+                <br>
+                <paginate ref="paginator" name="actors" :list="actors" :per="10">
                     <div v-for="actor in paginated('actors')" v-bind:key="actor.actor_id">
                         <Actor v-bind:actor="actor"/>
                     </div>
                 </paginate>
                 <paginate-links for="actors" :show-step-links="true" :simple="{prev: 'Anterior', next: 'Siguiente'}"/>
-                <p class="text-center font-weight-bold" v-if="$refs.paginator">
-                    Mostrando {{$refs.paginator.pageItemsCount}} resultados.
-                </p>
+                <span class="font-weight-bold" v-if="$refs.paginator">
+                    Mostrando {{$refs.paginator.pageItemsCount}} resultados
+                </span>
             </div>
-
             <!--
                 If data is not fetched yet, DOM shows three loading components
             -->
-            <div v-else>
+            <div class="center-div" v-else>
                 <LoaderBar/>
             </div>
         </div>
@@ -27,7 +34,7 @@
     /* eslint-disable */
     import Actor from "@/components/actor_components/actor/Actor"
     import './actors.css'
-    import LoaderBar from "@/components/actor_components/utils/loader_bar/LoaderBar";
+    import LoaderBar from "@/components/utils/loader_bar/LoaderBar";
 
     export default {
         name: "Actors",
@@ -42,7 +49,7 @@
             Actor,
             LoaderBar
         },
-        created: function () {
+        mounted: function () {
             this.fetchData()
         },
         methods: {
@@ -68,7 +75,7 @@
         margin-left: 0.3rem;
         margin-right: 0.3rem;
         cursor: pointer;
-        border-radius: 3px;
+        border-radius: 4px;
     }
     .paginate-links ul {
         margin-left: 40%;

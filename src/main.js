@@ -1,5 +1,8 @@
+/* eslint-disable */
 import Vue from 'vue'
 import App from './App.vue'
+import Films from '@/components/film_components/films_list/Films.vue'
+import Actors from '@/components/actor_components/actors_list/Actors'
 import BootstrapVue from "bootstrap-vue"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -8,16 +11,26 @@ import VueRouter from "vue-router"
 import VuePaginate from 'vue-paginate'
 
 
-Vue.config.productionTip = false
+Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(BootstrapVue)
-Vue.use(VueRouter)
 Vue.use(VuePaginate)
 
 const routes = [
     {
         path: '/',
-        component: App
+        component: Actors
+    },
+    {
+        path: '/actors',
+        name: 'get_actors',
+        component: Actors
+    },
+    {
+        path: '/actors/:id/films',
+        component: Films,
+        name: 'get_films_of_the_actor',
+        props: true
     }
 ]
 
@@ -26,6 +39,7 @@ const router = new VueRouter({
 })
 
 new Vue({
+    el: '#app',
     router,
-    render: h => h(App),
-}).$mount('#app')
+    render: h => h(App)
+});

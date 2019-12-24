@@ -1,27 +1,30 @@
 <template>
-  <div id="app">
-    <Actors/>
-  </div>
+    <div id="app">
+        <router-view/>
+    </div>
 </template>
 
 <script>
-import Actors from "@/components/actor_components/actors_list/Actors";
+    /* eslint-disable */
 
-export default {
-  name: 'app',
-  components: {
-    Actors
-  }
-}
+    import Actors from "@/components/actor_components/actors_list/Actors";
+    import Films from '@/components/film_components/films_list/Films'
+
+    export default {
+        name: 'app',
+        components: {
+            Films
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+    }
 </style>
