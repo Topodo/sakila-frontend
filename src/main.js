@@ -19,6 +19,7 @@ Vue.use(VuePaginate)
 const routes = [
     {
         path: '/',
+        name: 'main_page',
         component: Actors
     },
     {

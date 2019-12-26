@@ -1,17 +1,11 @@
 <template>
-    <div class="container-xl">
+    <div class="container-fluid">
         <h1 class="display-1 font-weight-bolder font-italic"> Actores </h1>
         <br>
         <br>
-        <div v-if="isFetched" class="text-center">
-            <div v-for="(chunk, index) in chunkedActors" v-bind:key="index">
-                <div class="row">
-                    <div v-for="actor in chunk" v-bind:key="actor.actor_id">
-                        <div class="col">
-                            <Actor v-bind:actor="actor"/>
-                        </div>
-                    </div>
-                </div>
+        <div v-if="isFetched" class="row">
+            <div class="col-12 col-sm-6 col-md-3" v-for="(actor, index) in actors" v-bind:key="index">
+                <Actor v-bind:actor="actor"/>
             </div>
         </div>
         <!--
@@ -34,6 +28,7 @@
         data: function () {
             return {
                 chunkedActors: [[]],
+                actors: [],
                 isFetched: false,
             }
         },
@@ -41,7 +36,7 @@
             Actor,
             LoaderBar
         },
-        mounted: function () {
+        created: function () {
             this.fetchData()
         },
         methods: {
@@ -50,12 +45,14 @@
                 if (this.$route.params.film_id) {
                     this.$http.get(`${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/${process.env.VUE_APP_API_VERSION}/films/${this.$route.params.film_id}/actors/`)
                         .then(response => {
+                            this.actors = response.body
                             this.chunkedActors = this.chunkActors(response.body)
                             this.isFetched = true
                         })
                 } else {
                     this.$http.get(`${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/${process.env.VUE_APP_API_VERSION}/actors/`)
                         .then(response => {
+                            this.actors = response.body
                             this.chunkedActors = this.chunkActors(response.body)
                             this.isFetched = true
                         })
@@ -75,5 +72,7 @@
 </script>
 
 <style>
-
+    .container-fluid {
+        width: 80% !important;
+    }
 </style>

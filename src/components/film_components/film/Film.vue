@@ -1,5 +1,5 @@
 <template>
-    <div class="border-bottom-imp border-green-imp">
+    <div class="borders shadow p-3 mb-5 bg-white rounded">
         <img :src="'https://robohash.org/' + title + '?size=70x70'" alt="" class="rounded-circle img"/>
         <div class="flex-row-reverse">
             <h5 class="font-weight-bold">Título: </h5>
@@ -108,4 +108,9 @@
     .btn-success {
         color: white !important;
     }
+
+    .borders {
+        margin: 1px !important;
+    }
+
 </style>

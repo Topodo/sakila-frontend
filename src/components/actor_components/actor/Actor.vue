@@ -1,5 +1,5 @@
 <template>
-    <div class="border-bottom-imp border-green-imp">
+    <div class="borders shadow p-3 mb-5 bg-white rounded">
         <img :src="'https://robohash.org/' + actor.actor_id + '?size=70x70'" alt="" class="rounded-circle img"/>
         <h5>{{ actorName }}</h5>
         <div class="flex-row">
@@ -56,22 +56,16 @@
         margin-bottom: 10px;
     }
 
-    .border-green-imp {
-        border-color: green !important;
-    }
-
-    .border-bottom-imp {
-        margin-top: 1em;
-        margin-right: 1em;
-        border-bottom: 2px groove green !important;
-    }
-
     .flex-row {
         padding: 1rem !important;
     }
 
     .btn-success {
         color: white !important;
+    }
+
+    .borders {
+        margin: 1px !important;
     }
 
 </style>

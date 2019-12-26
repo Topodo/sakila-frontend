@@ -1,20 +1,18 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <h1 class="display-1 font-weight-bolder font-italic"> Películas </h1>
         <br>
         <br>
-        <div class="row d-flex justify-content-center">
-            <div v-if="isFetched" class="col-md-6">
-                <div v-for="(film, index) in films" v-bind:key="index">
-                    <Film v-bind:film="film"/>
-                </div>
+        <div v-if="isFetched" class="row">
+            <div class="col-12 col-sm-6 col-lg-4" v-for="(film, index) in films" v-bind:key="index">
+                <Film v-bind:film="film"/>
             </div>
-            <!--
-                If data is not fetched yet, DOM shows three loading components
-            -->
-            <div class="center-div" v-else>
-                <LoaderBar/>
-            </div>
+        </div>
+        <!--
+            If data is not fetched yet, DOM shows three loading components
+        -->
+        <div class="center-div" v-else>
+            <LoaderBar/>
         </div>
     </div>
 
@@ -62,6 +60,8 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .container-fluid {
+        width: 90% !important;
+    }
 </style>
