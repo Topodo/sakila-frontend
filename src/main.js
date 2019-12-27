@@ -9,7 +9,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueResource from 'vue-resource'
 import VueRouter from "vue-router"
 import VuePaginate from 'vue-paginate'
+import 'bootstrap-css-only/css/bootstrap.min.css'
+import 'mdbvue/lib/css/mdb.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
+import * as mdbvue from 'mdbvue'
+for (const component in mdbvue) {
+    Vue.component(component, mdbvue[component])
+}
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
