@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <mdb-navbar color="success-color" dark sticky>
+        <mdb-navbar color="success-color sticky-top" dark>
             <mdb-navbar-brand :to="{name: 'main_page'}">
                 <span class="mb-0 h1 font-weight-bold">
                     Sakila
