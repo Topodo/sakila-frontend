@@ -4,6 +4,7 @@ import App from './App.vue'
 import Films from '@/components/film_components/films_list/Films.vue'
 import Actors from '@/components/actor_components/actors_list/Actors'
 import CreateActor from '@/components/actor_components/create_actor/CreateActor'
+import CreateFilm from '@/components/film_components/create_film/CreateFilm'
 import BootstrapVue from "bootstrap-vue"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -56,6 +57,11 @@ const routes = [
         path: '/actors/new',
         component: CreateActor,
         name: 'create_actor',
+    },
+    {
+        path: '/films/new',
+        component: CreateFilm,
+        name: 'create_film',
     }
 ]
 
