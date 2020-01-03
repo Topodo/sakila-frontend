@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
-        <h1 class="display-1 font-weight-bolder font-italic"> Actores </h1>
         <br>
+        <h1 class="bd-title"> Actores </h1>
         <br>
         <div class="overflow-auto">
             <b-pagination v-model="currentPage"

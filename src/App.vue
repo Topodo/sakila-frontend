@@ -16,7 +16,7 @@
                         </mdb-dropdown-toggle>
                         <mdb-dropdown-menu>
                             <mdb-dropdown-item :to="{name: 'get_actors'}">Ver actores</mdb-dropdown-item>
-                            <mdb-dropdown-item :to="{name: 'main_page'}">Crear actor</mdb-dropdown-item>
+                            <mdb-dropdown-item :to="{name: 'create_actor'}">Registrar actor</mdb-dropdown-item>
                         </mdb-dropdown-menu>
                     </mdb-dropdown>
                     <mdb-dropdown tag="li" class="nav-item">
@@ -24,7 +24,7 @@
                         </mdb-dropdown-toggle>
                         <mdb-dropdown-menu>
                             <mdb-dropdown-item :to="{name: 'get_films'}">Ver películas</mdb-dropdown-item>
-                            <mdb-dropdown-item :to="{name: 'main_page'}">Crear película</mdb-dropdown-item>
+                            <mdb-dropdown-item :to="{name: 'main_page'}">Registrar película</mdb-dropdown-item>
                         </mdb-dropdown-menu>
                     </mdb-dropdown>
                 </mdb-navbar-nav>
